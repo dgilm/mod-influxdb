@@ -77,7 +77,9 @@ class LogEvent:
 
         if event_type_match:
             #parse it with it's pattern
-            event_type = event_types[event_type_match.group(1)]
+            event_type = event_types.get(event_type_match.group(1), None)
+            if event_type is None:
+                return
             properties_match = re.match(event_type['pattern'], log)
 
             if properties_match:
